@@ -1,0 +1,43 @@
+# Default scoring rules for unclaimed-funds leads.
+# Tune values as we learn what correlates with actual deal closures.
+
+version: 1
+
+# Amount tiers are evaluated top-to-bottom; the first matching tier wins.
+# `min` is in dollars (the same unit as normalized_records.claim_amount).
+amount_tiers:
+  - {min: 25000, points: 35, label: "tier_25k_plus"}
+  - {min: 10000, points: 25, label: "tier_10k"}
+  - {min: 5000,  points: 18, label: "tier_5k"}
+  - {min: 1000,  points: 10, label: "tier_1k"}
+  - {min: 100,   points: 4,  label: "tier_100"}
+
+# Per-entity-type bonus. Keys must match db.models.EntityType values.
+entity_type:
+  estate: 18      # often the biggest payouts (heirs unaware of funds)
+  business: 8     # smaller individual fees but bigger volumes
+  individual: 5
+  unknown: 0
+
+# Bonus per matched keyword. Keys are lowercase; matching is case-insensitive.
+keywords:
+  heir: 15
+  deceased: 12
+  estate: 8
+  trust: 6
+  beneficiary: 8
+
+# Older records => more likely truly forgotten, not just newly reported.
+# Tiers are evaluated top-to-bottom; first match wins.
+age_years:
+  - {min: 10, points: 10}
+  - {min: 5,  points: 6}
+  - {min: 2,  points: 2}
+
+# Bonus if any address component is present (we have someone to write to).
+has_address: 5
+
+# Cutoffs for db.models.Priority. Anything below `medium` lands in `low`.
+priority_thresholds:
+  high: 50
+  medium: 25
