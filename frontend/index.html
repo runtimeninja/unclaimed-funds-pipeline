@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UFIP — Lead Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <header class="bg-slate-900 text-white px-6 py-4 shadow">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <h1 class="text-xl font-semibold">UFIP — Unclaimed Funds Lead Dashboard</h1>
+      <span id="server-status" class="text-xs text-slate-400">connecting…</span>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto p-6 space-y-6">
+
+    <!-- Stats -->
+    <section id="stats" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white rounded shadow p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Total leads</div>
+        <div id="stat-total" class="text-2xl font-semibold mt-1">–</div>
+      </div>
+      <div class="bg-white rounded shadow p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500">High priority</div>
+        <div id="stat-high" class="text-2xl font-semibold mt-1 text-red-600">–</div>
+      </div>
+      <div class="bg-white rounded shadow p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Total claim amount</div>
+        <div id="stat-amount" class="text-2xl font-semibold mt-1">–</div>
+      </div>
+      <div class="bg-white rounded shadow p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Pending export</div>
+        <div id="stat-pending" class="text-2xl font-semibold mt-1">–</div>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="bg-white rounded shadow p-4">
+      <form id="filter-form" class="flex flex-wrap items-end gap-3">
+        <label class="flex flex-col text-sm">
+          <span class="text-xs text-slate-500 mb-1">Priority</span>
+          <select id="f-priority" class="border rounded px-2 py-1.5 bg-white">
+            <option value="">Any</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </label>
+        <label class="flex flex-col text-sm">
+          <span class="text-xs text-slate-500 mb-1">State</span>
+          <input id="f-state" type="text" maxlength="2" placeholder="e.g. TX"
+                 class="border rounded px-2 py-1.5 w-20 uppercase">
+        </label>
+        <label class="flex flex-col text-sm">
+          <span class="text-xs text-slate-500 mb-1">Min amount</span>
+          <input id="f-min-amount" type="number" min="0" step="100" placeholder="0"
+                 class="border rounded px-2 py-1.5 w-32">
+        </label>
+        <div class="flex gap-2 ml-auto">
+          <button type="submit"
+                  class="bg-slate-900 text-white px-4 py-1.5 rounded hover:bg-slate-700">
+            Apply
+          </button>
+          <button type="button" id="reset-btn"
+                  class="border border-slate-300 px-4 py-1.5 rounded hover:bg-slate-100">
+            Reset
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Table -->
+    <section class="bg-white rounded shadow overflow-hidden">
+      <table class="w-full text-sm">
+        <thead class="bg-slate-100 text-slate-600 text-xs uppercase tracking-wide">
+          <tr>
+            <th class="text-left px-4 py-2">Owner</th>
+            <th class="text-left px-4 py-2">Type</th>
+            <th class="text-left px-4 py-2">City / State</th>
+            <th class="text-right px-4 py-2">Amount</th>
+            <th class="text-right px-4 py-2">Score</th>
+            <th class="text-left px-4 py-2">Priority</th>
+            <th class="text-left px-4 py-2">CRM</th>
+          </tr>
+        </thead>
+        <tbody id="leads-body" class="divide-y divide-slate-100">
+          <tr><td colspan="7" class="text-center text-slate-400 py-8">Loading…</td></tr>
+        </tbody>
+      </table>
+      <div class="flex items-center justify-between px-4 py-3 bg-slate-50 text-sm text-slate-600">
+        <div id="page-info">–</div>
+        <div class="flex gap-2">
+          <button id="prev-btn" class="border border-slate-300 px-3 py-1 rounded hover:bg-slate-100 disabled:opacity-40"
+                  disabled>← Prev</button>
+          <button id="next-btn" class="border border-slate-300 px-3 py-1 rounded hover:bg-slate-100 disabled:opacity-40"
+                  disabled>Next →</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Detail modal -->
+  <div id="detail-modal" hidden class="fixed inset-0 bg-slate-900/50 flex items-start justify-center pt-16 px-4 z-50">
+    <div class="bg-white rounded shadow-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+      <div class="flex items-center justify-between px-5 py-3 border-b">
+        <h2 class="font-semibold">Lead detail</h2>
+        <button id="close-modal" class="text-slate-500 hover:text-slate-900 text-2xl leading-none">&times;</button>
+      </div>
+      <div id="detail-body" class="p-5 text-sm space-y-4">–</div>
+    </div>
+  </div>
+
+<script>
+const PAGE_SIZE = 25;
+let offset = 0;
+let total = 0;
+let currentFilters = {};
+
+const fmtUSD = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+const fmtUSDExact = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+
+const priorityClass = {
+  high: "bg-red-100 text-red-700",
+  medium: "bg-amber-100 text-amber-700",
+  low: "bg-slate-100 text-slate-600",
+};
+
+async function api(path) {
+  const r = await fetch(path);
+  if (!r.ok) throw new Error(`${path} → ${r.status}`);
+  return r.json();
+}
+
+function setStatus(text, ok = true) {
+  const el = document.getElementById("server-status");
+  el.textContent = text;
+  el.className = ok ? "text-xs text-emerald-400" : "text-xs text-red-400";
+}
+
+async function loadStats() {
+  try {
+    const s = await api("/api/stats");
+    document.getElementById("stat-total").textContent = s.total_leads;
+    document.getElementById("stat-high").textContent = s.by_priority.high;
+    document.getElementById("stat-amount").textContent = fmtUSD.format(s.total_claim_amount);
+    document.getElementById("stat-pending").textContent = s.pending_export;
+    setStatus("connected", true);
+  } catch (e) {
+    setStatus("API offline", false);
+  }
+}
+
+function buildQuery() {
+  const params = new URLSearchParams();
+  params.set("limit", PAGE_SIZE);
+  params.set("offset", offset);
+  if (currentFilters.priority) params.set("priority", currentFilters.priority);
+  if (currentFilters.state) params.set("state", currentFilters.state);
+  if (currentFilters.min_amount) params.set("min_amount", currentFilters.min_amount);
+  return params.toString();
+}
+
+async function loadLeads() {
+  const tbody = document.getElementById("leads-body");
+  tbody.innerHTML = `<tr><td colspan="7" class="text-center text-slate-400 py-8">Loading…</td></tr>`;
+  try {
+    const data = await api(`/api/leads?${buildQuery()}`);
+    total = data.total;
+    if (data.items.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7" class="text-center text-slate-400 py-8">No leads match these filters.</td></tr>`;
+    } else {
+      tbody.innerHTML = data.items.map(renderRow).join("");
+      tbody.querySelectorAll("tr[data-id]").forEach(tr => {
+        tr.addEventListener("click", () => openDetail(tr.dataset.id));
+      });
+    }
+    updatePager();
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="7" class="text-center text-red-500 py-8">Error loading leads: ${e.message}</td></tr>`;
+  }
+}
+
+function renderRow(item) {
+  const amount = item.claim_amount ? fmtUSD.format(item.claim_amount) : "—";
+  const place = [item.city, item.state].filter(Boolean).join(", ") || "—";
+  const owner = item.owner_name || "(unnamed)";
+  const prClass = priorityClass[item.priority] || "bg-slate-100";
+  const exported = item.exported_to_crm
+    ? `<span class="text-emerald-600 text-xs">✓ exported</span>`
+    : `<span class="text-slate-400 text-xs">pending</span>`;
+  return `
+    <tr data-id="${item.id}" class="hover:bg-slate-50 cursor-pointer">
+      <td class="px-4 py-2 font-medium">${escapeHtml(owner)}</td>
+      <td class="px-4 py-2 text-slate-600">${item.entity_type}</td>
+      <td class="px-4 py-2 text-slate-600">${escapeHtml(place)}</td>
+      <td class="px-4 py-2 text-right tabular-nums">${amount}</td>
+      <td class="px-4 py-2 text-right font-semibold tabular-nums">${item.score}</td>
+      <td class="px-4 py-2"><span class="px-2 py-0.5 rounded text-xs uppercase tracking-wide ${prClass}">${item.priority}</span></td>
+      <td class="px-4 py-2">${exported}</td>
+    </tr>`;
+}
+
+function updatePager() {
+  const start = total === 0 ? 0 : offset + 1;
+  const end = Math.min(offset + PAGE_SIZE, total);
+  document.getElementById("page-info").textContent = `${start}–${end} of ${total}`;
+  document.getElementById("prev-btn").disabled = offset === 0;
+  document.getElementById("next-btn").disabled = offset + PAGE_SIZE >= total;
+}
+
+async function openDetail(id) {
+  const modal = document.getElementById("detail-modal");
+  const body = document.getElementById("detail-body");
+  body.textContent = "Loading…";
+  modal.hidden = false;
+  try {
+    const lead = await api(`/api/leads/${id}`);
+    body.innerHTML = renderDetail(lead);
+  } catch (e) {
+    body.textContent = `Error: ${e.message}`;
+  }
+}
+
+function renderDetail(lead) {
+  const addr = [lead.address_line1, lead.city, lead.state, lead.zip].filter(Boolean).join(", ") || "—";
+  const breakdown = JSON.stringify(lead.score_breakdown, null, 2);
+  const keywords = (lead.keywords_found || []).join(", ") || "—";
+  const amount = lead.claim_amount ? fmtUSDExact.format(lead.claim_amount) : "—";
+  return `
+    <div class="grid grid-cols-2 gap-x-6 gap-y-2">
+      <div class="text-slate-500 text-xs uppercase">Owner</div>
+      <div class="font-medium">${escapeHtml(lead.owner_name || "(unnamed)")}</div>
+      <div class="text-slate-500 text-xs uppercase">Entity type</div>
+      <div>${lead.entity_type}</div>
+      <div class="text-slate-500 text-xs uppercase">Address</div>
+      <div>${escapeHtml(addr)}</div>
+      <div class="text-slate-500 text-xs uppercase">Claim amount</div>
+      <div class="font-semibold">${amount}</div>
+      <div class="text-slate-500 text-xs uppercase">Property type</div>
+      <div>${escapeHtml(lead.property_type || "—")}</div>
+      <div class="text-slate-500 text-xs uppercase">Source</div>
+      <div class="font-mono text-xs">${escapeHtml(lead.source)}</div>
+      <div class="text-slate-500 text-xs uppercase">Score / Priority</div>
+      <div><span class="font-semibold">${lead.score}</span> · <span class="uppercase text-xs">${lead.priority}</span></div>
+      <div class="text-slate-500 text-xs uppercase">Keywords</div>
+      <div>${escapeHtml(keywords)}</div>
+      <div class="text-slate-500 text-xs uppercase">CRM</div>
+      <div>${lead.exported_to_crm ? "exported" : "pending export"}</div>
+    </div>
+    <div>
+      <div class="text-slate-500 text-xs uppercase mb-1">Score breakdown</div>
+      <pre class="bg-slate-100 rounded p-3 text-xs overflow-x-auto">${escapeHtml(breakdown)}</pre>
+    </div>`;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+// Wire up event handlers.
+document.getElementById("filter-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  currentFilters = {
+    priority: document.getElementById("f-priority").value,
+    state: document.getElementById("f-state").value.trim().toUpperCase(),
+    min_amount: document.getElementById("f-min-amount").value,
+  };
+  offset = 0;
+  loadLeads();
+});
+
+document.getElementById("reset-btn").addEventListener("click", () => {
+  document.getElementById("filter-form").reset();
+  currentFilters = {};
+  offset = 0;
+  loadLeads();
+});
+
+document.getElementById("prev-btn").addEventListener("click", () => {
+  offset = Math.max(0, offset - PAGE_SIZE);
+  loadLeads();
+});
+
+document.getElementById("next-btn").addEventListener("click", () => {
+  offset += PAGE_SIZE;
+  loadLeads();
+});
+
+document.getElementById("close-modal").addEventListener("click", () => {
+  document.getElementById("detail-modal").hidden = true;
+});
+
+document.getElementById("detail-modal").addEventListener("click", (e) => {
+  if (e.target.id === "detail-modal") {
+    document.getElementById("detail-modal").hidden = true;
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") document.getElementById("detail-modal").hidden = true;
+});
+
+loadStats();
+loadLeads();
+</script>
+</body>
+</html>
