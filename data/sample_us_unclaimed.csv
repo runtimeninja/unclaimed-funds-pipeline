@@ -1,0 +1,74 @@
+property_id,owner_name,owner_address,owner_city,owner_state,owner_zip,claim_amount,property_type_code,property_type_description,holder_name,reported_year
+TX-2024-000001,John Smith,1428 Westheimer Rd,Houston,TX,77006,3247.55,AC01,Checking Accounts,Wells Fargo Bank NA,2024
+TX-2024-000002,Mary Johnson,8842 Greenville Ave Apt 412,Dallas,TX,75243,1825.00,AC02,Savings Accounts,JPMorgan Chase Bank NA,2024
+TX-2024-000003,Robert Williams,3115 S Lamar Blvd,Austin,TX,78704,892.40,CK01,Cashiers Checks,Frost National Bank,2024
+TX-2024-000004,Patricia Brown,2201 Broadway St,San Antonio,TX,78215,15670.22,IN01,Insurance Proceeds,Prudential Insurance Co,2024
+TX-2024-000005,Michael Jones,701 Magnolia Ave,Fort Worth,TX,76104,247.80,MS04,Refunds,Texas Comptroller Public Accounts,2024
+TX-2024-000006,Jennifer Garcia,5400 N Mesa St,El Paso,TX,79912,42180.00,IN02,Annuities,MetLife Insurance Co,2024
+TX-2024-000007,William Miller,1801 N Collins St,Arlington,TX,76011,512.34,SC01,Stocks,Computershare,2024
+TX-2024-000008,Linda Davis,605 N Shoreline Blvd,Corpus Christi,TX,78401,98.15,UT01,Utility Deposits,CenterPoint Energy,2024
+TX-2024-000009,David Rodriguez,5800 Legacy Dr,Plano,TX,75024,2450.00,AC01,Checking Accounts,Bank of America NA,2024
+TX-2024-000010,Barbara Martinez,2402 Avenue Q,Lubbock,TX,79405,18.95,MS04,Refunds,Lubbock Power & Light,2024
+TX-2024-000011,Richard Hernandez,7200 San Bernardo Ave,Laredo,TX,78041,1124.00,AC02,Savings Accounts,IBC Bank,2024
+TX-2024-000012,Susan Lopez,3015 Forest Ln,Garland,TX,75042,672.50,IN01,Insurance Proceeds,Allstate Insurance Co,2024
+TX-2024-000013,Joseph Gonzalez,6020 W Royal Ln,Irving,TX,75063,8915.77,SC02,Bonds,Edward Jones,2024
+TX-2024-000014,Karen Wilson,3115 SW 9th Ave,Amarillo,TX,79109,355.00,CK01,Cashiers Checks,Amarillo National Bank,2024
+TX-2024-000015,Thomas Anderson,1101 E Adams St,Brownsville,TX,78520,5400.00,IN01,Insurance Proceeds,Liberty Mutual Insurance,2024
+TX-2024-000016,Nancy Thomas,2501 Seawall Blvd,Galveston,TX,77550,82.40,UT01,Utility Deposits,Texas New Mexico Power,2024
+TX-2024-000017,Charles Taylor,800 Austin Ave,Waco,TX,76701,1287.99,AC01,Checking Accounts,Extraco Banks NA,2024
+TX-2024-000018,Lisa Moore,4002 S Broadway Ave,Tyler,TX,75701,344.20,MS04,Refunds,Southwest Airlines Co,2024
+TX-2024-000019,Christopher Jackson,2201 Calder St,Beaumont,TX,77701,11240.55,SC01,Stocks,Fidelity Investments,2024
+TX-2024-000020,Margaret Martin,2200 N 23rd St,McAllen,TX,78501,612.00,AC02,Savings Accounts,Lone Star National Bank,2024
+TX-2024-000021,Daniel Lee,1015 Chestnut St,Brooklyn,NY,11221,4150.00,IN01,Insurance Proceeds,New York Life Insurance,2024
+TX-2024-000022,Sandra Perez,42 Elmwood Ave,Buffalo,NY,14201,178.45,MS04,Refunds,National Grid USA,2024
+TX-2024-000023,Matthew Thompson,500 S Spring St,Los Angeles,CA,90013,9870.00,SC01,Stocks,Charles Schwab Corp,2024
+TX-2024-000024,Kimberly White,1010 Park Blvd,San Diego,CA,92101,225.50,UT01,Utility Deposits,San Diego Gas & Electric,2024
+TX-2024-000025,Anthony Harris,1450 Brickell Ave,Miami,FL,33131,3325.00,AC01,Checking Accounts,Bank of America NA,2024
+TX-2024-000026,LONESTAR HOLDINGS LLC,1001 Fannin St Ste 2500,Houston,TX,77002,87420.00,SC01,Stocks,Computershare,2024
+TX-2024-000027,GULF COAST PROPERTIES INC,909 Texas Ave,Houston,TX,77002,15200.00,AC01,Checking Accounts,Truist Bank,2024
+TX-2024-000028,AUSTIN TECH SOLUTIONS LLC,500 W 5th St Ste 1100,Austin,TX,78701,42000.00,IN01,Insurance Proceeds,Hartford Insurance,2024
+TX-2024-000029,DALLAS PARTNERS LP,1717 Main St Ste 5500,Dallas,TX,75201,124850.50,SC02,Bonds,BNY Mellon,2024
+TX-2024-000030,HOUSTON ENERGY CORP,1401 McKinney St,Houston,TX,77010,67200.00,SC01,Stocks,EQ Shareowner Services,2024
+TX-2024-000031,RANCH GROUP HOLDINGS,2200 Ross Ave Ste 4800,Dallas,TX,75201,28115.00,AC02,Savings Accounts,Comerica Bank,2024
+TX-2024-000032,BLUE BONNET CAPITAL LLC,98 San Jacinto Blvd Ste 1500,Austin,TX,78701,52400.00,IN02,Annuities,Pacific Life Insurance,2024
+TX-2024-000033,PECOS RIVER FUND,300 Convent St Ste 1330,San Antonio,TX,78205,210000.00,SC02,Bonds,State Street Corp,2024
+TX-2024-000034,RIVERWALK SERVICES INC,112 E Pecan St,San Antonio,TX,78205,3475.00,AC01,Checking Accounts,Frost National Bank,2024
+TX-2024-000035,ALAMO ASSOCIATES LP,310 S Saint Marys St,San Antonio,TX,78205,18900.00,MS04,Refunds,USAA Federal Savings Bank,2024
+TX-2024-000036,TEXAS STAR ENTERPRISES,777 Main St Ste 1300,Fort Worth,TX,76102,9420.00,IN01,Insurance Proceeds,Travelers Insurance,2024
+TX-2024-000037,CACTUS COMPANY,420 Throckmorton St,Fort Worth,TX,76102,5612.00,AC01,Checking Accounts,Cadence Bank,2024
+TX-2024-000038,PADRE COASTAL CORP,802 N Carancahua St Ste 1900,Corpus Christi,TX,78401,32100.00,SC01,Stocks,Charles Schwab Corp,2024
+TX-2024-000039,BRAZOS ADVISORS LLC,5001 Spring Valley Rd Ste 600E,Dallas,TX,75254,14550.00,IN02,Annuities,New York Life Insurance,2024
+TX-2024-000040,TRINITY HOLDINGS GROUP,2401 Cedar Springs Rd,Dallas,TX,75201,77800.00,SC02,Bonds,Northern Trust Co,2024
+TX-2024-000041,KARANKAWA FUND II LP,2929 Allen Pkwy Ste 1700,Houston,TX,77019,890000.00,SC02,Bonds,JPMorgan Chase Bank NA,2024
+TX-2024-000042,CHISHOLM TRAIL CO,500 N Akard St Ste 4200,Dallas,TX,75201,12250.00,AC02,Savings Accounts,Wells Fargo Bank NA,2024
+TX-2024-000043,BIG TEX FINANCE LLC,1717 W 6th St Ste 380,Austin,TX,78703,6800.00,CK01,Cashiers Checks,Capital One NA,2024
+TX-2024-000044,PALO DURO PARTNERS,4200 Westheimer Rd Ste 200,Houston,TX,77027,46300.00,IN01,Insurance Proceeds,Liberty Mutual Insurance,2024
+TX-2024-000045,RIO GRANDE SERVICES INC,1300 Convent St,Laredo,TX,78040,4180.00,AC01,Checking Accounts,IBC Bank,2024
+TX-2024-000046,RED RIVER ASSOCIATES,1409 Niles City Blvd,Wichita Falls,TX,76304,7250.00,MS04,Refunds,Atmos Energy Corp,2024
+TX-2024-000047,GULF OF AMERICA CAPITAL,701 Brazos St Ste 500,Austin,TX,78701,156000.00,SC01,Stocks,Fidelity Investments,2024
+TX-2024-000048,LAREDO LOGISTICS LLC,5810 San Bernardo Ave,Laredo,TX,78041,3920.00,AC02,Savings Accounts,Wells Fargo Bank NA,2024
+TX-2024-000049,BAY CITY GROUP,1601 7th St,Bay City,TX,77414,8910.00,IN01,Insurance Proceeds,State Farm Insurance,2024
+TX-2024-000050,SADDLEHORN VENTURES INC,1801 Main St Ste 1300,Houston,TX,77002,23475.00,SC01,Stocks,Computershare,2024
+TX-2024-000051,ESTATE OF JAMES PATTERSON,2715 Bissonnet St,Houston,TX,77005,21500.00,IN01,Insurance Proceeds,Prudential Insurance Co,2024
+TX-2024-000052,ESTATE OF DOROTHY MILLER,4422 Lovers Ln,Dallas,TX,75225,8800.00,SC01,Stocks,Computershare,2024
+TX-2024-000053,ESTATE OF FRANK GUTIERREZ,3801 N Lamar Blvd Apt 12,Austin,TX,78756,4220.00,AC01,Checking Accounts,Bank of America NA,2024
+TX-2024-000054,ESTATE OF EVELYN BAKER,103 W Olmos Dr,San Antonio,TX,78212,12750.00,IN02,Annuities,MetLife Insurance Co,2024
+TX-2024-000055,ESTATE OF CHARLES KIM,4115 Camp Bowie Blvd,Fort Worth,TX,76107,33000.00,SC02,Bonds,BNY Mellon,2024
+TX-2024-000056,ESTATE OF MARGARET WALSH,2601 N Stanton St,El Paso,TX,79902,6480.00,AC02,Savings Accounts,WestStar Bank,2024
+TX-2024-000057,ESTATE OF ROBERT FOSTER,1701 N 23rd St,McAllen,TX,78501,2150.00,CK01,Cashiers Checks,Lone Star National Bank,2024
+TX-2024-000058,ESTATE OF EVA RAMIREZ,701 Buffalo Bayou Pl,Houston,TX,77019,28950.00,IN01,Insurance Proceeds,New York Life Insurance,2024
+TX-2024-000059,ESTATE OF GEORGE NGUYEN,11811 Bellaire Blvd,Houston,TX,77072,9870.00,SC01,Stocks,Charles Schwab Corp,2024
+TX-2024-000060,ESTATE OF VIRGINIA TANAKA,3801 Beechnut St,Houston,TX,77072,5640.00,AC01,Checking Accounts,JPMorgan Chase Bank NA,2024
+TX-2024-000061,WILLIAMS FAMILY TRUST,5215 N OConnor Blvd,Irving,TX,75039,145000.00,SC02,Bonds,Northern Trust Co,2024
+TX-2024-000062,BROWN LIVING TRUST,2828 Hood St,Dallas,TX,75219,67500.00,IN02,Annuities,Pacific Life Insurance,2024
+TX-2024-000063,GARCIA FAMILY TRUST,2812 N Saint Marys St,San Antonio,TX,78212,32200.00,SC01,Stocks,Computershare,2024
+TX-2024-000064,MARTINEZ HERITAGE TRUST,5910 N Central Expy,Dallas,TX,75206,84150.00,SC02,Bonds,State Street Corp,2024
+TX-2024-000065,ROBERTS REVOCABLE TRUST,901 W 24th St,Austin,TX,78705,18650.00,IN01,Insurance Proceeds,Lincoln Financial Group,2024
+TX-2024-000066,Walter Henderson,2801 Kirby Dr,Houston,TX,77098,,AC01,Checking Accounts,Truist Bank,2024
+TX-2024-000067,Diane Cooper,300 W 6th St Ste 2400,Austin,TX,78701,"AMOUNT INDICATED IS AT LEAST $100.00",IN01,Insurance Proceeds,Aflac Inc,2024
+TX-2024-000068,Vincent Russo,8118 Westchester Dr,Dallas,TX,75225,"BETWEEN $50.00 AND $99.99",MS04,Refunds,Oncor Electric Delivery,2024
+TX-2024-000069,Kathleen O'Brien,9525 Katy Fwy Apt 220,Houston,TX,77024,"$1,250.75",AC02,Savings Accounts,Wells Fargo Bank NA,2024
+TX-2024-000070,STETSON PARTNERS LLC,711 Louisiana St Ste 2300,Houston,TX,77002,,SC01,Stocks,Computershare,2024
+TX-2024-000071,John Smith,1428 Westheimer Rd,Houston,TX,77006,3247.55,AC01,Checking Accounts,Wells Fargo Bank NA,2024
+TX-2024-000072,LONESTAR HOLDINGS LLC,1001 Fannin St Ste 2500,Houston,TX,77002,87420.00,SC01,Stocks,Computershare,2024
+TX-2024-000073,ESTATE OF JAMES PATTERSON,2715 Bissonnet St,Houston,TX,77005,21500.00,IN01,Insurance Proceeds,Prudential Insurance Co,2024

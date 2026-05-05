@@ -8,8 +8,10 @@ Per-test normalizers belong inside the test file that uses them, not here.
 from __future__ import annotations
 
 from normalize.base import BaseNormalizer
+from normalize.sources.sample_us import SOURCE as SAMPLE_US_SOURCE, SampleUSNormalizer
 
-# Populated as real sources are added.
-DEFAULT_NORMALIZERS: dict[str, BaseNormalizer] = {}
+DEFAULT_NORMALIZERS: dict[str, BaseNormalizer] = {
+    SAMPLE_US_SOURCE: SampleUSNormalizer(),
+}
 
 __all__ = ["DEFAULT_NORMALIZERS"]

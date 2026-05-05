@@ -36,7 +36,11 @@ yarn-debug.log*
 Thumbs.db
 
 # --- Project-specific ---
-data/
+# Ignore everything under data/ except the bundled sample dataset that
+# the pipeline's end-to-end test depends on. (Note: must be `data/*`,
+# not `data/` — git can't re-include files inside a fully-ignored dir.)
+data/*
+!data/sample_us_unclaimed.csv
 downloads/
 *.log
 logs/
